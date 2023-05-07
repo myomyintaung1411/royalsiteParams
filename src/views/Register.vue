@@ -74,6 +74,20 @@
               </div>
             </div>
 
+           <div class="flex flex-col mb-5">
+              <!-- <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">请输入账号</label> -->
+              <div class="relative">
+                <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                  <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                  </svg> -->
+                  <CodeIcon class="w-6 h-6"></CodeIcon>
+                </div>
+  
+                <input disabled v-model="inviteCode" id="inviteCode" type="name" autocomplete="off" name="name" class="text-sm  bg-white cursor-not-allowed text-gray-800 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none" placeholder="请输入邀请码" />
+              </div>
+            </div>
+
   
             <div class="flex w-full">
               <button :disabled="disableBtn" @click="Register" type="submit" :class="disableBtn ? 'bg-[#F0DE7C] opacity-40 cursor-not-allowed' : 'text-black bg-[#C78E3B]'" class="flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base rounded py-2 w-full transition duration-150 ease-in">
@@ -96,11 +110,11 @@
 
   </template>
   
-  <script setup>
+<script setup>
 import {
   EyeIcon,
   EyeOffIcon,
-  ExclamationCircleIcon,ChevronLeftIcon,UserIcon
+  ExclamationCircleIcon,ChevronLeftIcon,UserIcon,CodeIcon
 } from "@heroicons/vue/outline";
 import { ref, computed, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
@@ -122,6 +136,8 @@ const passwordField = ref("password");
 const confirmpasswordField = ref("password");
 const timer = ref(10);
 const isShow = ref(false);
+
+const inviteCode = ref('sdfds')
 
 const disableBtn = computed(() => {
   if (name.value === "" || password.value === "") {
@@ -161,7 +177,8 @@ const onShow = () => {
         // pw: this.$md5("aes@13" + this.register.pass + "22dfxs%#DSsd"),
         pw: md5(password.value),
         phone: '',
-        agent: agentName,
+        //agent: agentName,
+        InvCode:inviteCode.value
     };
     isShow.value = true;
     console.log(data, "sendStr");
@@ -177,7 +194,7 @@ const onShow = () => {
                 return Notice.Message( '无此代理','error')
             }
             if (msg?.JsonData.result == "103") {
-                onClose(); // 验证成功，手动关闭模态框
+                //onClose(); // 验证成功，手动关闭模态框
                 return Notice.Message( '已存在此帐号','error')
             }
             if (msg.JsonData?.result == "104") {
@@ -217,6 +234,10 @@ const Register = () => {
     // if (!agree.value)
     //     return Notice.Message({ message: '※ 请勾选同意条款!!', duration: 2 })
      onShow()
+}
+
+if (localStorage.getItem('inviteCode')) {
+  inviteCode.value = localStorage.getItem('inviteCode')
 }
 
   </script>

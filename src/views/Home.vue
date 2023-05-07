@@ -2,7 +2,7 @@
   <div class="relative w-full h-screen hidden sm:block">
     <!-- customer service -->
     <div class="fixed right-5 bottom-[300px]   z-50 flex flex-col space-y-3">
-      <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <!-- <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
@@ -22,35 +22,28 @@
             </div>
           </div>
         </div>
-      </li>
+      </li> -->
 
-      <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <!-- <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(1)">
           <img src="@/assets/icon/ic_qq.svg" alt="" class="w-full h-full">
         </div>
         <div v-if="IconNum == 1 && isshowQQ"
           class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
           <span  class="w-[100px]">{{ agentInfo?.QQ }}</span>
-          <!-- <div>
-            <img src="@/assets/icon/btn_copy1.png" alt="" class="w-[30px] h-[30px]">
-          </div> -->
         </div>
-      </li>
-      <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      </li> -->
+      <!-- <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(2)">
           <img src="@/assets/icon/ic_wechat.svg" alt="" class="w-full h-full">
         </div>
         <div v-if="IconNum == 2 && isshowWx"
           class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] top-[10px]">
-          <!-- <span class="w-[100px]">093243243234</span> -->
           <vue-qrcode  :value="agentInfo?.WXH" class=" rounded-t-lg" tag="img" ref="Iosqr" :options="{
             errorCorrectionLevel: 'Q',
             width: 200,
             type: 'png'
           }"></vue-qrcode>
-          <!-- <div>
-            <img src="@/assets/icon/btn_copy1.png" alt="" class="w-[30px] h-[30px]">
-          </div> -->
         </div>
       </li>
       <li v-if="agentInfo?.phone" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
@@ -60,16 +53,15 @@
         <div v-if="IconNum == 3 && isshowPh"
           class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
           <span  class="w-[100px]">{{ agentInfo?.phone }}</span>
-          <!-- <div>
-            <img src="@/assets/icon/btn_copy1.png" alt="" class="w-[30px] h-[30px]">
-          </div> -->
         </div>
-      </li>
+      </li> -->
+
       <li @click="toTop" class="list-none w-[50px] h-[50px] cursor-pointer">
         <img src="@/assets/icon/ic_top.svg" alt="" class="w-full h-full">
 
       </li>
     </div>
+
     <!-- header section -->
     <div class="w-full h-auto" style="border-bottom: 1px solid transparent">
       <div class="lg:max-w-7xl mx-auto px-0">
@@ -91,9 +83,9 @@
               <a :href="agentInfo?.htLink" target="_blank" rel="noopener noreferrer"
                 class="py-4 px- font-semibold hover:text-[#FFC827]  transition duration-150 ease-in-out cursor-pointer">{{
                   t('agent') }}</a>
-              <a @click="goService(0)" rel="noopener noreferrer"
+              <!-- <a @click="goService(0)" rel="noopener noreferrer"
                 class=" py-4 px-2   font-semibold hover:text-[#FFC827]  transition duration-150 ease-in-out cursor-pointer ">{{
-                  t('service') }}</a>
+                  t('service') }}</a> -->
 
               <router-link v-if="!loginState" to="/login"
                 class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out">
@@ -466,7 +458,7 @@
       </footer>
     </div>
     <!-- customer service -->
-    <div v-if="agentInfo?.customerAddr" class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
+    <!-- <div v-if="agentInfo?.customerAddr" class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
       <li  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
@@ -489,8 +481,7 @@
             </div>
           </div>
         </div>
-
-    </div>
+    </div> -->
 
 
   </div>
@@ -506,10 +497,12 @@ import Carousal from '@/components/Carousal.vue';
 import global from '@/network/global'
 import AES from "@/network/aes";
 import { useStore } from "vuex";
+import {useRoute} from 'vue-router'
 
 const { t } = useI18n();
 console.log(t);
 const store = useStore()
+const route = useRoute()
 
 
 
@@ -769,10 +762,18 @@ width=500,height=700,left=${window.screen.width / 2},top=${window.screen.width /
   }
 }
 
+if (route?.query !== undefined && route.query?.InvCode !== undefined) {
+  console.log(route.query.InvCode);
+  const inviteCode = route.query.InvCode;
+  localStorage.setItem('inviteCode', inviteCode);
+  // console.error(route.query.inviteCode + " route query from main.vue");
+} 
+
 onMounted(() => {
   // var url = "xincs597.com";
-  var url = "www.23423.com";
-  //var url = window.location.host
+  //var url = "www.23423.com";
+  console.log(window.location.host);
+  var url = window.location.host
   GetAgentdata(url)
   window.addEventListener("scroll", handleScroll);
   // callData()

@@ -19,7 +19,7 @@ export default {
      UserRegister(data) {
         // console.log('data ... ', data)
          return network({
-             url: '/regist',
+             url: '/registinv',
              method: 'post',
              data
          })
