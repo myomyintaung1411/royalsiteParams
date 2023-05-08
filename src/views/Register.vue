@@ -137,7 +137,7 @@ const confirmpasswordField = ref("password");
 const timer = ref(10);
 const isShow = ref(false);
 
-const inviteCode = ref('sdfds')
+const inviteCode = ref('')
 
 const disableBtn = computed(() => {
   if (name.value === "" || password.value === "") {
