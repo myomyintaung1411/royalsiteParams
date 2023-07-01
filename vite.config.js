@@ -16,7 +16,7 @@ export default defineConfig({
     open: false,
     https: false,
     hot: true,
-    port:4444,
+    port:4353,
     proxy: {
       '/api': {
         target: 'http://192.168.1.10:3198/',

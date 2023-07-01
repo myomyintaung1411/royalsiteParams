@@ -2,7 +2,7 @@
   <div class="relative w-full h-screen hidden sm:block">
     <!-- customer service -->
     <div class="fixed right-5 bottom-[300px]   z-50 flex flex-col space-y-3">
-      <!-- <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
@@ -22,9 +22,9 @@
             </div>
           </div>
         </div>
-      </li> -->
+      </li>
 
-      <!-- <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(1)">
           <img src="@/assets/icon/ic_qq.svg" alt="" class="w-full h-full">
         </div>
@@ -32,8 +32,8 @@
           class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
           <span  class="w-[100px]">{{ agentInfo?.QQ }}</span>
         </div>
-      </li> -->
-      <!-- <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      </li>
+      <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(2)">
           <img src="@/assets/icon/ic_wechat.svg" alt="" class="w-full h-full">
         </div>
@@ -54,7 +54,7 @@
           class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
           <span  class="w-[100px]">{{ agentInfo?.phone }}</span>
         </div>
-      </li> -->
+      </li>
 
       <li @click="toTop" class="list-none w-[50px] h-[50px] cursor-pointer">
         <img src="@/assets/icon/ic_top.svg" alt="" class="w-full h-full">
@@ -80,7 +80,8 @@
               <a @click="goGame()" rel="noopener noreferrer"
                 class=" py-4 px-2 font-semibold hover:text-[#FFC827]  transition duration-150 ease-in-out cursor-pointer">{{
                   t('pc') }}</a>
-              <a :href="agentInfo?.htLink" target="_blank" rel="noopener noreferrer"
+                 
+              <a :href="Global?.ad" target="_blank" rel="noopener noreferrer"
                 class="py-4 px- font-semibold hover:text-[#FFC827]  transition duration-150 ease-in-out cursor-pointer">{{
                   t('agent') }}</a>
               <!-- <a @click="goService(0)" rel="noopener noreferrer"
@@ -165,7 +166,7 @@
                   {{ t('about_txt') }}
                 </p>
               </div>
-              <a :href="infoData[1]?.link" target="_blank"
+              <a @click="goGame" target="_blank"
                 class="cmn--btn active btn--lg cursor-pointer relative overflow-hidden; hover:bg-[#ffdd2d] hover:text-black bg-[#C76F0B] shadow-lg transition duration-150 ease-in-out"
                 style="margin: 5px 10px; padding: 13px 35px !important; font-size: 24px; box-shadow: -3.828px -3.828px 6px 0px rgb(255 200 39 / 40%), 3px 5px 8px 0px rgb(255 82 1 / 20%)">{{
                   t('know') }}</a>
@@ -246,25 +247,25 @@
           <div v-for="n in 4" :key="n" class="text-center py-0 px-6 relative">
             <div class=" flex items-center justify-center text-white mb-9 h-[210px]">
               <figure class="inline-block -mb-2 relative w-full">
-                <vue-qrcode v-if="n == 1" :value="agentInfo?.h5Link" class="sm:max-h-fit w-fit  rounded-t-lg" tag="img"
+                <vue-qrcode v-if="n == 1" :value="Global?.h5_game_url" class="sm:max-h-fit w-fit  rounded-t-lg" tag="img"
                   ref="Iosqr" :options="{
                     errorCorrectionLevel: 'Q',
                     width: 300,
                     type: 'png'
                   }"></vue-qrcode>
-                <vue-qrcode v-if="n == 2" :value="agentInfo?.htLink" class="sm:max-h-fit w-fit  rounded-t-lg" tag="img"
+                <vue-qrcode v-if="n == 2" :value="Global?.ad" class="sm:max-h-fit w-fit  rounded-t-lg" tag="img"
                   ref="Iosqr" :options="{
                     errorCorrectionLevel: 'Q',
                     width: 300,
                     type: 'png'
                   }"></vue-qrcode>
-                <vue-qrcode v-if="n == 3" :value="agentInfo?.downloadUrl" class="sm:max-h-fit w-fit  rounded-t-lg"
+                <vue-qrcode v-if="n == 3" :value="Global?.app_down" class="sm:max-h-fit w-fit  rounded-t-lg"
                   tag="img" ref="Iosqr" :options="{
                     errorCorrectionLevel: 'Q',
                     width: 300,
                     type: 'png'
                   }"></vue-qrcode>
-                <vue-qrcode v-if="n == 4" :value="agentInfo?.downloadUrl" class="sm:max-h-fit w-fit  rounded-t-lg"
+                <vue-qrcode v-if="n == 4" :value="Global?.app_down" class="sm:max-h-fit w-fit  rounded-t-lg"
                   tag="img" ref="Iosqr" :options="{
                     errorCorrectionLevel: 'Q',
                     width: 300,
@@ -304,7 +305,7 @@
                 <a class="text-[#FFC827] cursor-pointer" @click="goGame">{{ t('pc') }}</a>
               </li>
               <li class="py-1 px-3">
-                <a class="text-[#FFC827] cursor-pointer" :href="agentInfo?.htLink" target="_blank">{{ t('agent') }}</a>
+                <a class="text-[#FFC827] cursor-pointer" :href="Global?.ad" target="_blank">{{ t('agent') }}</a>
               </li>
               <li class="px-3">
 
@@ -458,7 +459,7 @@
       </footer>
     </div>
     <!-- customer service -->
-    <!-- <div v-if="agentInfo?.customerAddr" class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
+    <div v-if="agentInfo?.customerAddr" class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
       <li  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
@@ -481,7 +482,86 @@
             </div>
           </div>
         </div>
-    </div> -->
+    </div>
+
+
+        <GameModalDialog :show="selectGameModal" @closegame="closeGameModal">
+      <div
+        class="game_bg_image md:max-w-[1000px] lg:max-w-[1050px] cursor-pointer"
+      >
+        <div class="w-full absolute top-28 px-4">
+          <div class="w-full items-center mt-10 grid grid-cols-2 gap-x-1">
+            <div
+              class="flex flex-col items-center px-4 font-bold text-white text-2xl"
+            >
+              <div>豪 华 版</div>
+              <div
+                @click="goDialog_Game(0)"
+                class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-64 mt-5"
+              >
+                <img
+                  src="@/assets/images/gameimg1.png"
+                  alt=""
+                  class="w-full h-full object-cover p-[1px]"
+                />
+              </div>
+            </div>
+            <div
+              class="flex flex-col items-center px-4 font-bold text-white text-2xl"
+            >
+              <div>经 典 版</div>
+              <div
+                @click="goDialog_Game(1)"
+                class="w-full hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] border-[2px] border-solid rounded border-[#836a4c] h-64 mt-5"
+              >
+                <img
+                  src="@/assets/images/gameimg2.png"
+                  alt=""
+                  class="w-full h-full object-cover p-[1px]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </GameModalDialog>
+
+    <GameModalDialog :show="h5_selectGameDialog" @closegame="closeGameModal">
+      <div class="h-auto w-[90vw] cursor-pointer">
+        <div class="mt-12 bg-black">
+          <div
+            class="flex flex-col items-center px-4 font-bold text-white text-2xl bg-[#2b2a2954] py-3"
+          >
+            <div>豪 华 版</div>
+            <div
+              @click="goDialog_Game(2)"
+              class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-40"
+            >
+              <img
+                src="@/assets/images/gameimg1.png"
+                alt=""
+                class="w-full h-full object-cover p-[1px]"
+              />
+            </div>
+          </div>
+          <div
+            class="flex flex-col items-center px-4 font-bold text-white text-2xl bg-[#2b2a2954] py-3"
+          >
+            <div>经 典 版</div>
+            <div
+              @click="goDialog_Game(3)"
+              class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-40"
+            >
+              <img
+                src="@/assets/images/gameimg2.png"
+                alt=""
+                class="w-full h-full object-cover p-[1px]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </GameModalDialog>
 
 
   </div>
@@ -491,6 +571,7 @@ import api from '@/network/allApi'
 import { onMounted, ref, computed } from "vue";
 import { LogoutIcon, CurrencyYenIcon, UserIcon, UserAddIcon, UserCircleIcon, CreditCardIcon, PlayIcon, ArrowCircleUpIcon, XIcon } from "@heroicons/vue/outline";
 import ModalDialog from "@/components/ModalDialog.vue";
+import GameModalDialog from "@/components/gameModal.vue";
 import LanguageSwitch from "@/components/LanguageSwitch.vue";
 import { useI18n } from 'vue-i18n'
 import Carousal from '@/components/Carousal.vue';
@@ -518,11 +599,16 @@ const agentInfo = ref(null)//agent info response
 const scY = ref(0);
 const infoData = ref([])
 
+const selectGameModal = ref(false); //pc enter game
+const h5_selectGameDialog = ref(false); // h5 enter game
+
 const LoginResponseInfo = computed(() => store.getters["user/LOGIN_INFO"]);
 const loginState = computed(() => store.getters["user/LOGIN_STATE"]);
 const gameEnterInfo = computed(() => store.getters["user/GAME_USER_INFO"]);
 
+const inviteCode_ = ref('') //to get agent info 
 
+const Global = xxzz; // call unknow.js object as global
 
 
 const mobileMenuOpen = () => {
@@ -560,9 +646,9 @@ function splitServiceUrl() {
   return splitUrl
 }
 
-function GetAgentdata(domain) {
+function GetAgentdata() {
   var en = global.en;
-  const data = JSON.stringify({ domain: domain });
+  const data = JSON.stringify({ code: inviteCode_.value });
   let endata = AES.encrypt(data, en);
   console.log(endata);
   api.GetAgentInfo({ data: endata })
@@ -602,46 +688,142 @@ function handleScroll() {
   }, 100);
 }
 
-const goGame = () => {
+const closeGameModal = () => {
+  selectGameModal.value = false;
+  h5_selectGameDialog.value = false;
+  // router.push('/')
+};
+
+
+const goDialog_Game = (number) => {
   var gameEn = global?.gameEn;
+  var en = global.en;
   let data = {
     name: gameEnterInfo?.value?.name,
     password: gameEnterInfo?.value?.pw,
   };
   var endata = AES.encrypt(JSON.stringify(data), gameEn);
-  if (agentInfo?.value?.gameAddr == null || agentInfo?.value?.gameAddr == undefined || agentInfo?.value?.gameAddr == '') return
-  if (loginState?.value) {
-    window.open(
-      "http://" +
-      agentInfo?.value?.gameAddr +
-      `?token=${endata}`
-    );
-  } else {
-    window.open("http://" +
-      agentInfo?.value?.gameAddr +
-      `?token=`)
+  var ennnnn= 'k82L8raNKEZCK7p0JkmXYPEmrY8WUDd+wdYtu+OqdyAtAx+XxNs5DOKpvAMEOa+BOCYEC58iML+TXBi339BrMQ=='
+   var msg = JSON.parse(AES.decrypt(ennnnn, gameEn));
+   console.log(msg);
+  switch (number) {
+    case 0:
+      // if (
+      //   agentInfo?.value?.gameAddr == null ||
+      //   agentInfo?.value?.gameAddr == undefined ||
+      //   agentInfo?.value?.gameAddr == ""
+      // )
+      //   return;
+      if (loginState?.value) {
+        window.open(
+          Global.old_pc_game_url + `?token=${endata}`
+        );
+      } else {
+        window.open(Global.old_pc_game_url + `?token=`);
+      }
+      closeGameModal();
+      break;
+    case 1:
+
+      //   if (
+      //   agentInfo?.value?.gameAddr == null ||
+      //   agentInfo?.value?.gameAddr == undefined ||
+      //   agentInfo?.value?.gameAddr == ""
+      // )
+      //   return;
+      if (loginState?.value) {
+        window.open(
+          Global.new_pc_game_url + `?token=${endata}`
+        );
+      } else {
+        window.open(Global.new_pc_game_url + `?token=`);
+      }
+
+      // window.open("http://www.hj888888.vip/");
+      closeGameModal();
+      break;
+    case 2:
+      //      if (
+      //   agentInfo?.value?.h5Link == null ||
+      //   agentInfo?.value?.h5Link == undefined ||
+      //   agentInfo?.value?.h5Link == ""
+      // )
+      //   return;
+      if (loginState?.value) {
+        window.open(
+          Global.h5_game_url + `?token=${endata}`
+        );
+      } else {
+        window.open(Global.h5_game_url + `?token=`);
+      }
+      closeGameModal();
+      break;
+    case 3:
+      // if (
+      //   agentInfo?.value?.gameAddr == null ||
+      //   agentInfo?.value?.gameAddr == undefined ||
+      //   agentInfo?.value?.gameAddr == ""
+      // )
+      //   return;
+      if (loginState?.value) {
+        window.open(
+          Global.new_pc_game_url + `?token=${endata}`
+        );
+      } else {
+        window.open(Global.new_pc_game_url + `?token=`);
+      }
+      closeGameModal();
+      break;
+
+    default:
+      break;
   }
+};
+
+const goGame = () => {
+  //if(!agentInfo?.value?.gameAddr) return
+   selectGameModal.value = true;
+  // var gameEn = global?.gameEn;
+  // let data = {
+  //   name: gameEnterInfo?.value?.name,
+  //   password: gameEnterInfo?.value?.pw,
+  // };
+  // var endata = AES.encrypt(JSON.stringify(data), gameEn);
+  // if (agentInfo?.value?.gameAddr == null || agentInfo?.value?.gameAddr == undefined || agentInfo?.value?.gameAddr == '') return
+  // if (loginState?.value) {
+  //   window.open(
+  //     "http://" +
+  //     agentInfo?.value?.gameAddr +
+  //     `?token=${endata}`
+  //   );
+  // } else {
+  //   window.open("http://" +
+  //     agentInfo?.value?.gameAddr +
+  //     `?token=`)
+  // }
 }
 const goGameH5 = () => {
-  var gameEn = global?.gameEn;
-  let data = {
-    name: gameEnterInfo?.value?.name,
-    password: gameEnterInfo?.value?.pw,
-  };
-  var endata = AES.encrypt(JSON.stringify(data), gameEn);
-  if (agentInfo?.value?.h5Link == null || agentInfo?.value?.h5Link == undefined || agentInfo?.value?.h5Link == '') return
-  if (loginState?.value) {
-    window.open(
-      // "http://" +
-      agentInfo?.value?.h5Link +
-      `?token=${endata}`
-    );
-  } else {
-    window.open(
-      // "http://" +
-      agentInfo?.value?.h5Link +
-      `?token=`)
-  }
+  //if(!agentInfo?.value?.h5Link) return
+  h5_selectGameDialog.value = true
+  // var gameEn = global?.gameEn;
+  // let data = {
+  //   name: gameEnterInfo?.value?.name,
+  //   password: gameEnterInfo?.value?.pw,
+  // };
+  // var endata = AES.encrypt(JSON.stringify(data), gameEn);
+  // if (agentInfo?.value?.h5Link == null || agentInfo?.value?.h5Link == undefined || agentInfo?.value?.h5Link == '') return
+  // if (loginState?.value) {
+  //   window.open(
+  //     // "http://" +
+  //     agentInfo?.value?.h5Link +
+  //     `?token=${endata}`
+  //   );
+  // } else {
+  //   window.open(
+  //     // "http://" +
+  //     agentInfo?.value?.h5Link +
+  //     `?token=`)
+  // }
 }
 
 function serviceName(index) {
@@ -764,6 +946,7 @@ width=500,height=700,left=${window.screen.width / 2},top=${window.screen.width /
 
 if (route?.query !== undefined && route.query?.InvCode !== undefined) {
   console.log(route.query.InvCode);
+  inviteCode_.value = route.query.InvCode
   const inviteCode = route.query.InvCode;
   localStorage.setItem('inviteCode', inviteCode);
   // console.error(route.query.inviteCode + " route query from main.vue");
@@ -772,9 +955,10 @@ if (route?.query !== undefined && route.query?.InvCode !== undefined) {
 onMounted(() => {
   // var url = "xincs597.com";
   //var url = "www.23423.com";
-  console.log(window.location.host);
-  var url = window.location.host
-  GetAgentdata(url)
+   var url = "www.royalgaming.today";
+   console.log(window.location,"ddddddd")
+  //var url = window.location.host
+  GetAgentdata()
   window.addEventListener("scroll", handleScroll);
   // callData()
 })
@@ -994,4 +1178,19 @@ onMounted(() => {
 .four {
   background-image: url('@/assets/4444.jpg');
   background-size: cover;
-}</style>
+}
+
+
+.game_bg_image {
+  width: 1050px;
+  height: 550px;
+  margin: 0 auto;
+  background: transparent;
+  background-image: url(@/assets/images/gamedialogBg.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: transparent;
+  position: relative;
+  /* z-index: 9999; */
+}
+</style>

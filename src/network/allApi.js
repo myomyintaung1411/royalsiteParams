@@ -11,7 +11,7 @@ export default {
     GetAgentInfo(data) {
         // console.log('data ... ', data)
          return network({
-             url: '/getAgentInfo',
+             url: '/getAgentInfoCode',
              method: 'post',
              data
          })

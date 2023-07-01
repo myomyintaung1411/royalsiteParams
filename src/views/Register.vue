@@ -281,7 +281,7 @@ function ConfirmShowVisibility() {
 }
 
 const goBack = () => {
-  router.push("/");
+  router.push(`/?InvCode=${inviteCode.value}`);
 };
 
 const onShow = () => {

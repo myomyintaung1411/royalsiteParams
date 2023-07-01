@@ -30,14 +30,18 @@ import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
-
+const inviteCode = ref('')
  const activeTab = ref(0)
  const showRules = (number) => {
   activeTab.value = number
  }
  const goBack = () => {
-    router.push('/')
+  router.push(`/?InvCode=${inviteCode.value}`);
  }
+
+ if (localStorage.getItem("inviteCode")) {
+  inviteCode.value = localStorage.getItem("inviteCode");
+}
 
 </script>
 
