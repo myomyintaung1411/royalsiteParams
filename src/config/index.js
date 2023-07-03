@@ -1,4 +1,4 @@
-import { createI18n } from "vue-i18n/index"
+import { createI18n } from "vue-i18n"
 import en from '@/config/en.json'
 import cz from '@/config/zh.json'
 // const messages = {

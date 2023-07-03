@@ -86,7 +86,7 @@ import {
   SearchIcon,
   TranslateIcon 
 } from "@heroicons/vue/outline";
-import { useI18n } from "vue-i18n/index";
+import { useI18n } from "vue-i18n";
 import { onMounted, reactive, ref, watch, computed } from "vue";
 export default {
   components: {

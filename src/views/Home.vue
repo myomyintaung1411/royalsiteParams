@@ -58,8 +58,8 @@
 
       <li @click="toTop" class="list-none w-[50px] h-[50px] cursor-pointer">
         <img src="@/assets/icon/ic_top.svg" alt="" class="w-full h-full">
-
       </li>
+
     </div>
 
     <!-- header section -->
@@ -459,12 +459,47 @@
       </footer>
     </div>
     <!-- customer service -->
-    <div v-if="agentInfo?.customerAddr" class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
-      <li  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+    <div  class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
+      <li v-if="agentInfo?.customerAddr"  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
       </li>
+
+      <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+        <div @click="goService(1)">
+          <img src="@/assets/icon/ic_qq.svg" alt="" class="w-full h-full">
+        </div>
+        <div v-if="IconNum == 1 && isshowQQ"
+          class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
+          <span  class="w-[100px]">{{ agentInfo?.QQ }}</span>
+        </div>
+      </li>
+      
+      <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+        <div @click="goService(2)">
+          <img src="@/assets/icon/ic_wechat.svg" alt="" class="w-full h-full">
+        </div>
+        <div v-if="IconNum == 2 && isshowWx"
+          class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] top-[10px]">
+          <vue-qrcode  :value="agentInfo?.WXH" class=" rounded-t-lg" tag="img" ref="Iosqr" :options="{
+            errorCorrectionLevel: 'Q',
+            width: 200,
+            type: 'png'
+          }"></vue-qrcode>
+        </div>
+      </li>
+
+      <li v-if="agentInfo?.phone" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+        <div @click="goService(3)">
+          <img src="@/assets/icon/ic_shouji.png" alt="" class="w-full h-full">
+        </div>
+        <div v-if="IconNum == 3 && isshowPh"
+          class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
+          <span  class="w-[100px]">{{ agentInfo?.phone }}</span>
+        </div>
+      </li>
+
 
       <div v-if="isshowKefu &&   splitServiceUrl()?.length > 1"
           class="absolute  flex items-center text-white  text-center overflow-y-auto bottom-[0px]  leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] ">
