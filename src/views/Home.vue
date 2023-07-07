@@ -1,12 +1,13 @@
 <template>
   <div class="relative w-full h-screen hidden sm:block">
+    {{customer_service_link}}
     <!-- customer service -->
     <div class="fixed right-5 bottom-[300px]   z-50 flex flex-col space-y-3">
       <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
-        <div v-if="isshowKefu && IconNum == 0 && splitServiceUrl()?.length > 1"
+        <div v-if="isshowKefu && IconNum == 0 && customer_service_link?.length > 1"
           class="absolute  flex items-center text-white  text-center overflow-y-auto  leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] top-[0px]">
           <div class="w-[200px] py-2  px-2 max-h-80 h-full relative ">
             <div @click="isshowKefu = false" class="absolute right-2 ">
@@ -14,10 +15,16 @@
             </div>
             
             <h2 class="text-center text-base tracking-wide text-[#FFC827]">选择客服</h2>
-            <div v-for="(service, n) in splitServiceUrl()" :key="n" class="py-1 ">
+            <!-- <div v-for="(service, n) in splitServiceUrl()" :key="n" class="py-1 ">
               <div @click="clickService(service)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#350b2d] py-2">
                 <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
                 <div>{{serviceName(n)}}</div>
+              </div>
+            </div> -->
+            <div v-for="(service, n) in customer_service_link" :key="n" class="py-1 ">
+              <div @click="clickService(service?.c_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#350b2d] py-2">
+                <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
+                <div>{{service.nickname}}</div>
               </div>
             </div>
           </div>
@@ -501,7 +508,7 @@
       </li>
 
 
-      <div v-if="isshowKefu &&   splitServiceUrl()?.length > 1"
+      <!-- <div v-if="isshowKefu &&   splitServiceUrl()?.length > 1"
           class="absolute  flex items-center text-white  text-center overflow-y-auto bottom-[0px]  leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] ">
           <div class="w-[200px] py-2  px-2 max-h-80 h-full relative ">
             <div @click="isshowKefu = false" class="absolute right-2 ">
@@ -516,7 +523,25 @@
               </div>
             </div>
           </div>
+        </div> -->
+      <div v-if="isshowKefu &&  customer_service_link?.length > 1"
+          class="absolute  flex items-center text-white  text-center overflow-y-auto bottom-[0px]  leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] ">
+          <div class="w-[200px] py-2  px-2 max-h-80 h-full relative ">
+            <div @click="isshowKefu = false" class="absolute right-2 ">
+              <XIcon  class="w-5 z-10 h-5  bg-white rounded-full text-black p-[2px] "></XIcon>
+            </div>
+            
+            <h2 class="text-center text-base tracking-wide text-[#FFC827]">选择客服</h2>
+            <div v-for="(service, n) in customer_service_link" :key="n" class="py-1 ">
+              <div @click="clickService(service?.c_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#5c5854] py-2">
+                <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
+                <div>{{service.nickname}}</div>
+              </div>
+            </div>
+          </div>
         </div>
+
+
     </div>
 
 
@@ -535,7 +560,7 @@
                 class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-64 mt-5"
               >
                 <img
-                  src="@/assets/images/gameimg1.png"
+                  src="@/assets/images/gameimg1.jpg"
                   alt=""
                   class="w-full h-full object-cover p-[1px]"
                 />
@@ -573,7 +598,7 @@
               class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-40"
             >
               <img
-                src="@/assets/images/gameimg1.png"
+                src="@/assets/images/gameimg1.jpg"
                 alt=""
                 class="w-full h-full object-cover p-[1px]"
               />
@@ -634,6 +659,8 @@ const agentInfo = ref(null)//agent info response
 const scY = ref(0);
 const infoData = ref([])
 
+const customer_service_link = ref([])//loop to show customer service link
+
 const selectGameModal = ref(false); //pc enter game
 const h5_selectGameDialog = ref(false); // h5 enter game
 
@@ -675,6 +702,7 @@ const Logout = () => {
 
 
 
+
 function splitServiceUrl() {
   let url = agentInfo?.value?.customerAddr;
   let splitUrl = url?.split(",")
@@ -694,6 +722,45 @@ function GetAgentdata() {
       if (msg?.JsonData?.code == 200) {
         store.commit('user/Agent_Info', msg?.JsonData)
         agentInfo.value = msg?.JsonData
+        const customer_id = extractSpecialIds(msg?.JsonData?.customerAddr);//get id from customerAddr like [2852,2853] etc
+
+        CustomerService(msg?.JsonData?.Id,customer_id) //getting customer name 
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
+
+function extractSpecialIds(link) {
+  //const link = "http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2857,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2858"
+
+  const urls = link?.split(",");
+  const regex = /special=(\d+)/;
+  
+  return urls.map(url => {
+    const match = url?.match(regex);
+    return match ? parseInt(match[1]) : null;
+  }).filter(id => id !== null);
+}
+
+function CustomerService(id,customerId) {
+ // const customer_id = extractSpecialIds();
+
+  var en = global.en;
+  const data = JSON.stringify({ "Id":id,"customer_id":JSON.stringify(customerId) });
+   console.log(data)
+  let endata = AES.encrypt(data, en);
+  console.log(endata);
+  api.GetServicLink({ data: endata })
+    .then((res) => {
+      var body = res?.data;
+      var msg = JSON.parse(AES.decrypt(body, en));
+      console.log(msg, "response msg of customer service");
+      if (msg?.JsonData?.result == "ok" ) {
+        customer_service_link.value = msg?.JsonData?.data
+        //store.commit('user/Agent_Info', msg?.JsonData)
+        //agentInfo.value = msg?.JsonData
       }
     })
     .catch((e) => {
@@ -816,49 +883,10 @@ const goDialog_Game = (number) => {
 };
 
 const goGame = () => {
-  //if(!agentInfo?.value?.gameAddr) return
    selectGameModal.value = true;
-  // var gameEn = global?.gameEn;
-  // let data = {
-  //   name: gameEnterInfo?.value?.name,
-  //   password: gameEnterInfo?.value?.pw,
-  // };
-  // var endata = AES.encrypt(JSON.stringify(data), gameEn);
-  // if (agentInfo?.value?.gameAddr == null || agentInfo?.value?.gameAddr == undefined || agentInfo?.value?.gameAddr == '') return
-  // if (loginState?.value) {
-  //   window.open(
-  //     "http://" +
-  //     agentInfo?.value?.gameAddr +
-  //     `?token=${endata}`
-  //   );
-  // } else {
-  //   window.open("http://" +
-  //     agentInfo?.value?.gameAddr +
-  //     `?token=`)
-  // }
 }
 const goGameH5 = () => {
-  //if(!agentInfo?.value?.h5Link) return
   h5_selectGameDialog.value = true
-  // var gameEn = global?.gameEn;
-  // let data = {
-  //   name: gameEnterInfo?.value?.name,
-  //   password: gameEnterInfo?.value?.pw,
-  // };
-  // var endata = AES.encrypt(JSON.stringify(data), gameEn);
-  // if (agentInfo?.value?.h5Link == null || agentInfo?.value?.h5Link == undefined || agentInfo?.value?.h5Link == '') return
-  // if (loginState?.value) {
-  //   window.open(
-  //     // "http://" +
-  //     agentInfo?.value?.h5Link +
-  //     `?token=${endata}`
-  //   );
-  // } else {
-  //   window.open(
-  //     // "http://" +
-  //     agentInfo?.value?.h5Link +
-  //     `?token=`)
-  // }
 }
 
 function serviceName(index) {
@@ -878,7 +906,14 @@ function serviceName(index) {
     return msg[index]
 }
 
-function clickService(link) {
+function clickService(id) {
+  console.log(id,"iddddd")
+//here i am find for example id 2853 then find 2853 customer url from agentInfo?.value?.customerAddr
+//const aa = "http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2852,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2853,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2854,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2855,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2856,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2857,http://chat.royalgaming.today/#/?visiter_id=&avatar=&business_id=1&groupid=1&special=2858";
+
+const link = agentInfo?.value?.customerAddr?.split(",").find(url => url.includes(`special=${id}`));
+
+console.log(link,"linkkkkkkkkkkkkkk")
   let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=500,height=700,left=${window.screen.width / 2},top=${window.screen.width / 2}`;
   if (agentInfo?.value) {
@@ -995,6 +1030,7 @@ onMounted(() => {
   //var url = window.location.host
   GetAgentdata()
   window.addEventListener("scroll", handleScroll);
+  CustomerService()
   // callData()
 })
 </script>

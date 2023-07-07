@@ -47,6 +47,13 @@ instance.interceptors.request.use((config) => {
   // token && (config.headers.Authorization = token)
   config.headers.token = token
   // 若请求方式为post，则将data参数转为JSON字符串
+
+  if (config.requestBase == '/api') {
+    config.baseURL = '/api'
+  } else{
+    config.baseURL = '/cu'
+  }
+
   if (config.method === 'POST') {
     config.data = JSON.stringify(config.data)
   }

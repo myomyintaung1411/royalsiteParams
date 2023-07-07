@@ -200,7 +200,7 @@
               class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-64 mt-5"
             >
               <img
-                src="@/assets/images/gameimg1.png"
+                src="@/assets/images/gameimg1.jpg"
                 alt=""
                 class="w-full h-full object-cover p-[1px]"
               />
@@ -238,7 +238,7 @@
             class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-40"
           >
             <img
-              src="@/assets/images/gameimg1.png"
+              src="@/assets/images/gameimg1.jpg"
               alt=""
               class="w-full h-full object-cover p-[1px]"
             />
