@@ -1,13 +1,13 @@
 <template>
   <div class="relative w-full h-screen hidden sm:block">
-    {{customer_service_link}}
+   
     <!-- customer service -->
     <div class="fixed right-5 bottom-[300px]   z-50 flex flex-col space-y-3">
       <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
-        <div v-if="isshowKefu && IconNum == 0 && customer_service_link?.length > 1"
+        <div v-if="isshowKefu && IconNum == 0 && customer_service_link?.length > 0"
           class="absolute  flex items-center text-white  text-center overflow-y-auto  leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] top-[0px]">
           <div class="w-[200px] py-2  px-2 max-h-80 h-full relative ">
             <div @click="isshowKefu = false" class="absolute right-2 ">
@@ -410,7 +410,7 @@
       <div class=" w-full  h-32 bg-[#3f0e36]  mx-3 flex shadow-lg ">
         <div class="flex flex-col w-1/2  justify-center items-center space-y-2">
           <p class="font-bold tracking-wide text-lg text-[#FFC827] ">H5 登录入口</p>
-          <a @click="goGameH5" class="px-5 py-2 bg-[#c4a447]  rounded-xl font-bold tracking-wide">现在播放</a>
+          <a  @click="goDialog_Game(2)" class="px-5 py-2 bg-[#c4a447]  rounded-xl font-bold tracking-wide">现在播放</a>
         </div>
         <div class="w-1/2">
           <div class="card_bg"></div>
@@ -524,7 +524,7 @@
             </div>
           </div>
         </div> -->
-      <div v-if="isshowKefu &&  customer_service_link?.length > 1"
+      <div v-if="isshowKefu &&  customer_service_link?.length > 0"
           class="absolute  flex items-center text-white  text-center overflow-y-auto bottom-[0px]  leading-[30px] text-sm left-[-220px] bg-[#3a3a3a] ">
           <div class="w-[200px] py-2  px-2 max-h-80 h-full relative ">
             <div @click="isshowKefu = false" class="absolute right-2 ">
@@ -604,7 +604,7 @@
               />
             </div>
           </div>
-          <div
+          <!-- <div
             class="flex flex-col items-center px-4 font-bold text-white text-2xl bg-[#2b2a2954] py-3"
           >
             <div>经 典 版</div>
@@ -618,7 +618,7 @@
                 class="w-full h-full object-cover p-[1px]"
               />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </GameModalDialog>
@@ -747,7 +747,7 @@ function extractSpecialIds(link) {
 function CustomerService(id,customerId) {
  // const customer_id = extractSpecialIds();
 
-  var en = global.en;
+  var en = global.en_cu;
   const data = JSON.stringify({ "Id":id,"customer_id":JSON.stringify(customerId) });
    console.log(data)
   let endata = AES.encrypt(data, en);
@@ -957,37 +957,37 @@ width=500,height=700,left=${window.screen.width / 2},top=${window.screen.width /
       isshowPh.value = false
       isshowQQ.value = false
       isshowKefu.value = !isshowKefu.value
-      if (splitServiceUrl()?.length == 1) {
-        let url = agentInfo?.value?.customerAddr;
-        if (agentInfo?.value) {
-          if (loginState?.value) {
-            let loginId = LoginResponseInfo?.value?.Id;
-            let loginName = LoginResponseInfo?.value?.username;
-            let splitedUrl = url?.split("=");
-            let nick_name = `&nick_name=${loginName}`;
-            let cusUrl =
-              splitedUrl[0] +
-              "=" +
-              loginId +
-              splitedUrl[1] +
-              "=" +
-              splitedUrl[2] +
-              "=" +
-              splitedUrl[3] +
-              "=" +
-              splitedUrl[4] +
-              "=" +
-              splitedUrl[5] +
-              nick_name;
-           // window.open(cusUrl)
-            window.open(cusUrl,"mywindow",params)
+      // if (splitServiceUrl()?.length == 1) {
+      //   let url = agentInfo?.value?.customerAddr;
+      //   if (agentInfo?.value) {
+      //     if (loginState?.value) {
+      //       let loginId = LoginResponseInfo?.value?.Id;
+      //       let loginName = LoginResponseInfo?.value?.username;
+      //       let splitedUrl = url?.split("=");
+      //       let nick_name = `&nick_name=${loginName}`;
+      //       let cusUrl =
+      //         splitedUrl[0] +
+      //         "=" +
+      //         loginId +
+      //         splitedUrl[1] +
+      //         "=" +
+      //         splitedUrl[2] +
+      //         "=" +
+      //         splitedUrl[3] +
+      //         "=" +
+      //         splitedUrl[4] +
+      //         "=" +
+      //         splitedUrl[5] +
+      //         nick_name;
+      //      // window.open(cusUrl)
+      //       window.open(cusUrl,"mywindow",params)
 
-          } else {
-            //window.open(url)
-            window.open(url,"mywindow",params)
-          }
-        }
-      }
+      //     } else {
+      //       //window.open(url)
+      //       window.open(url,"mywindow",params)
+      //     }
+      //   }
+      // }
 
 
       break;
@@ -1030,7 +1030,7 @@ onMounted(() => {
   //var url = window.location.host
   GetAgentdata()
   window.addEventListener("scroll", handleScroll);
-  CustomerService()
+  //CustomerService()
   // callData()
 })
 </script>

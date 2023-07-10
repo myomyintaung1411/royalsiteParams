@@ -20,14 +20,14 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://192.168.1.10:3198/',
-        //'target':'http://www.royalgaming.today',
+        //'target':'http://tyworld-win.com',
         ws: true,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/cu': {
         target: 'http://192.168.1.10:9998/',
-        //'target':'http://www.royalgaming.today',
+        //'target':'http://tyworld-win.com',
         ws: true,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/cu/, '')
