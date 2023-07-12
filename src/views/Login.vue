@@ -41,16 +41,16 @@
       </div>
       <div class="mt-5">
         <form @click.prevent>
-          <div class="flex flex-col mb-5">
-            <!-- <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">请输入账号</label> -->
+          <div class="flex flex-col mb-3">
+            <label for="name" class="mb-1 text-xs tracking-wider text-gray-100">
+              <span class="text-red-500 font-bold pr-1">*</span>
+              账号
+            </label>
             <div class="relative">
               <div
                 class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
               >
-                <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg> -->
-                <UserIcon class="w-6 h-6"></UserIcon>
+                <UserIcon class="w-5 h-5"></UserIcon>
               </div>
 
               <input
@@ -58,21 +58,26 @@
                 id="name"
                 type="name"
                 autocomplete="off"
+                minlength="8"
+                maxlength="8"
                 name="name"
                 class="text-sm placeholder-gray-500 text-gray-500 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none"
-                placeholder="请输入账号"
+                placeholder="请输入8位账号"
               />
             </div>
           </div>
           <div class="flex flex-col mb-4">
-            <!-- <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-100">请输入密码</label> -->
+             <label for="name" class="mb-1 text-xs tracking-wider text-gray-100">
+              <span class="text-red-500 font-bold pr-1">*</span>
+              登录密码
+            </label>
             <div class="relative">
               <div
                 class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  class="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

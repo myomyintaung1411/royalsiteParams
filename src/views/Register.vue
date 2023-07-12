@@ -2,7 +2,7 @@
   <div
     class="min-h-screen flex flex-col items-center relative justify-center bg_img login__"
   >
-    <div class="absolute left-4 top-5 hidden sm:block">
+    <div class="fixed left-4 top-5 hidden sm:block">
       <div
         @click="goBack()"
         class="flex items-center justify-center space-x-2 cursor-pointer"
@@ -13,7 +13,7 @@
     </div>
 
     <div
-      class="absolute left-0 right-0 top-0 h-[60px] bg-[#635661] bg-opacity-20 w-full sm:hidden z-30"
+      class="fixed left-0 right-0 top-0 h-[60px] bg-[#635661] bg-opacity-20 w-full sm:hidden z-30"
     >
       <div
         class="justify-between px-3 flex items-center w-full h-full text-[#d0d0d0]"
@@ -30,7 +30,7 @@
     </div>
 
     <div
-      class="flex flex-col bg-[#474747] bg-opacity-40 z-30 text-gray-200 shadow-2xl shadow-[#342D11] px-4 sm:px-6 md:px-8 lg:px-10 pb-4 rounded-3xl w-50 max-w-xs sm:max-w-md"
+      class="flex flex-col bg-[#474747] bg-opacity-40 z-30 text-gray-200 shadow-2xl  shadow-[#342D11] px-4 sm:px-6 md:px-8 lg:px-10 pb-4 rounded-3xl w-50 max-w-xs sm:max-w-md"
     >
       <div class="py-3 self-center">
         <img src="@/assets/images/logo.png" alt="" class="w-[120px] h-auto" />
@@ -41,19 +41,22 @@
       >
         账号注册
       </div>
-
-      <div class="mt-5">
-        <form @click.prevent>
-          <div class="flex flex-col mb-5">
-            <!-- <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">请输入账号</label> -->
-            <div class="relative">
+     
+      <div class="mt-3">
+      <span class="text-sm text-red-500 tracking-[2px] font-bold mt-1">以下标有 <span >*</span> 为必填项</span>
+      
+        <form class="mb-1" @click.prevent>
+          <div class="flex flex-col mb-3 ">
+            <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">
+              <span class="text-red-500 font-bold pr-1">*</span>
+              账号
+            </label>
+             <!-- <span class="text-red-500">* <span>账号</span></span> -->
+            <div class="relative flex items-center  ">
               <div
                 class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
               >
-                <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg> -->
-                <UserIcon class="w-6 h-6"></UserIcon>
+                <UserIcon class="w-5 h-5"></UserIcon>
               </div>
 
               <input
@@ -61,21 +64,28 @@
                 id="name"
                 type="name"
                 autocomplete="off"
+                minlength="8"
+                maxlength="8"
                 name="name"
-                class="text-sm placeholder-gray-500 text-gray-500 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none"
-                placeholder="请输入账号"
+                class="text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-4 rounded  w-full py-2 focus:outline-none outline-none"
+                placeholder="账号必须为 8位数字组成！"
               />
             </div>
+            <!-- <p class="text-[13px] text-red-400 tracking-widest pt-2"> {{usernameError}}</p> -->
           </div>
-          <div class="flex flex-col mb-5">
-            <!-- <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-100">请输入密码</label> -->
+
+          <div class="flex flex-col mb-3">
+            <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">
+              <span class="text-red-500 font-bold pr-1">*</span>
+              密码
+            </label>
             <div class="relative">
               <div
                 class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  class="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -93,9 +103,10 @@
                 id="password"
                 autocomplete="off"
                 :type="passwordField"
+                minlength="6" maxlength="16"
                 name="password"
-                class="__p text-sm placeholder-gray-500 text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
-                placeholder="请输入密码"
+                class="__p text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
+                placeholder="请设置6-16位字母+数字密码"
               />
               <div
                 class="inline-flex items-center justify-center absolute right-3 top-0 h-full w-10 text-gray-400 md:cursor-pointer"
@@ -110,19 +121,22 @@
                   @click="ShowVisibility"
                   class="w-4 h-5 text-yellow-700"
                 />
-                <!-- <label class="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label select-none" for="toggle" @click="ShowVisibility">{{passwordField === 'password' ? 'show' : 'hide'}}</label> -->
               </div>
             </div>
           </div>
-          <div class="flex flex-col mb-5">
-            <!-- <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-100">请输入密码</label> -->
+
+          <div class="flex flex-col mb-3">
+            <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">
+              <span class="text-red-500 font-bold pr-1">*</span>
+              确认密码
+            </label>
             <div class="relative">
               <div
                 class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  class="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -138,11 +152,12 @@
               <input
                 v-model="confirmpass"
                 id="confirmpass"
+                 minlength="6" maxlength="16"
                 autocomplete="off"
                 :type="confirmpasswordField"
                 name="password"
-                class="__p text-sm placeholder-gray-500 text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
-                placeholder="请输入确认密码"
+                class="__p text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
+                placeholder="请设置6-16位字母+数字密码"
               />
               <div
                 class="inline-flex items-center justify-center absolute right-3 top-0 h-full w-10 text-gray-400 md:cursor-pointer"
@@ -157,20 +172,19 @@
                   @click="ConfirmShowVisibility"
                   class="w-4 h-5 text-yellow-700"
                 />
-                <!-- <label class="bg-gray-300 hover:bg-gray-400 rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer js-password-label select-none" for="toggle" @click="ShowVisibility">{{passwordField === 'password' ? 'show' : 'hide'}}</label> -->
               </div>
             </div>
           </div>
 
-          <div class="flex flex-col mb-5">
-            <!-- <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">请输入账号</label> -->
+          <div class="flex flex-col mb-3">
+            <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">
+              <span class="text-red-500 font-bold pr-1">*</span>
+              邀请码
+            </label>
             <div class="relative">
               <div
                 class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400"
               >
-                <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg> -->
                 <CodeIcon class="w-6 h-6"></CodeIcon>
               </div>
 
@@ -181,7 +195,7 @@
                 type="name"
                 autocomplete="off"
                 name="name"
-                class="text-sm bg-white cursor-not-allowed text-gray-800 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none"
+                class="text-sm bg-white cursor-not-allowed placeholder:text-[12px] placeholder:tracking-wider text-gray-800 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none"
                 placeholder="请输入邀请码"
               />
             </div>
@@ -218,6 +232,7 @@
             </button>
           </div>
         </form>
+        
       </div>
       <span class="text-[13px] mt-2"
         >已有账户？点这里
@@ -258,6 +273,8 @@ const confirmpasswordField = ref("password");
 const timer = ref(10);
 const isShow = ref(false);
 const host = ref(null);
+
+const usernameError = ref("")
 
 const inviteCode = ref("");
 
@@ -345,11 +362,15 @@ const onSuccess = () => {
 
 const Register = () => {
   if (name.value == "" || password.value == "" || confirmpass.value == "")
-    return Notice.Message("请输入所有字段", "error");
+   
+   return Notice.Message("请输入所有字段", "error");
 
   if (!/^\d{8}$/.test(name.value)) {
-    return Notice.Message("账号必须为 8位数字组成！", "error");
+   usernameError.value = "账号必须为 8位数字组成！"
+  return Notice.Message("账号必须为 8位数字组成！", "error");
+  
   }
+  usernameError.value = ""
 
   // Check for repetitive numbers (more than 6 repetitions)
   if (/(\d)\1{5,}/.test(name.value)) {
@@ -367,8 +388,8 @@ const Register = () => {
 
   if (password.value !== confirmpass.value)
     return Notice.Message("两次输入密码不一致", "error");
-  if (name.value.length < 4)
-    return Notice.Message("用户名至少应包含四个字符", "error");
+  // if (name.value.length < 4)
+  //   return Notice.Message("用户名至少应包含四个字符", "error");
   if (password.value.length < 6)
     return Notice.Message("密码必须至少有6个字符长", "error");
 
@@ -380,6 +401,7 @@ const Register = () => {
   // if (!agree.value)
   //     return Notice.Message({ message: '※ 请勾选同意条款!!', duration: 2 })
   onShow();
+  usernameError.value = ""
 };
 
 if (localStorage.getItem("inviteCode")) {

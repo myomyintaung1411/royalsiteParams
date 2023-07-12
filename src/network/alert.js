@@ -36,8 +36,8 @@ export default {
                 timerProgressBar: true,
                 icon: icon,
                 grow: false,
-                background: "#4b0e40",
-                color: "#fff",
+                background: "#fffff",
+                color: "#000",
                 title: msg,
                 customClass: {
                     timerProgressBar: 'my-progress-bar',
