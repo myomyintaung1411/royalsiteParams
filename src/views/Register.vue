@@ -44,7 +44,7 @@
      
       <div class="mt-3">
       <span class="text-sm text-red-500 tracking-[2px] font-bold mt-1">以下标有 <span >*</span> 为必填项</span>
-      
+
         <form class="mb-1" @click.prevent>
           <div class="flex flex-col mb-3 ">
             <label for="name" class="mb-1 text-xs tracking-wide text-gray-100">
@@ -67,11 +67,12 @@
                 minlength="8"
                 maxlength="8"
                 name="name"
-                class="text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-4 rounded  w-full py-2 focus:outline-none outline-none"
+               
+                class=" text-sm placeholder-gray-500  placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-4 rounded  w-full py-2 focus:outline-none outline-none"
                 placeholder="账号必须为 8位数字组成！"
               />
             </div>
-            <!-- <p class="text-[13px] text-red-400 tracking-widest pt-2"> {{usernameError}}</p> -->
+             <!-- <p v-if="show_name_Error" class="text-[13px] text-red-400 tracking-widest pt-2">{{ usernameError }}</p> -->
           </div>
 
           <div class="flex flex-col mb-3">
@@ -105,7 +106,7 @@
                 :type="passwordField"
                 minlength="6" maxlength="16"
                 name="password"
-                class="__p text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
+                class="text-sm placeholder-gray-500 focus:ring-0  placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-4 rounded  w-full py-2 focus:outline-none outline-none"
                 placeholder="请设置6-16位字母+数字密码"
               />
               <div
@@ -123,6 +124,7 @@
                 />
               </div>
             </div>
+            <!-- <p v-if="show_pass_Error" class="text-[13px] text-red-400 tracking-widest pt-2">{{ passwordError }}</p> -->
           </div>
 
           <div class="flex flex-col mb-3">
@@ -275,6 +277,10 @@ const isShow = ref(false);
 const host = ref(null);
 
 const usernameError = ref("")
+const show_name_Error = ref(false);
+
+const passwordError = ref("")
+const show_pass_Error = ref(false)
 
 const inviteCode = ref("");
 
@@ -288,11 +294,13 @@ const disableBtn = computed(() => {
   }
 });
 
+
+
+
 const AgentInfo = computed(() => store.getters["user/AGENT_INFO"]);
 
 function ShowVisibility() {
-  passwordField.value =
-    passwordField.value === "password" ? "text" : "password";
+  passwordField.value = passwordField.value === "password" ? "text" : "password";
 }
 function ConfirmShowVisibility() {
   confirmpasswordField.value =
@@ -366,11 +374,12 @@ const Register = () => {
    return Notice.Message("请输入所有字段", "error");
 
   if (!/^\d{8}$/.test(name.value)) {
+    show_name_Error.value = true;
    usernameError.value = "账号必须为 8位数字组成！"
   return Notice.Message("账号必须为 8位数字组成！", "error");
   
   }
-  usernameError.value = ""
+  
 
   // Check for repetitive numbers (more than 6 repetitions)
   if (/(\d)\1{5,}/.test(name.value)) {
@@ -401,8 +410,66 @@ const Register = () => {
   // if (!agree.value)
   //     return Notice.Message({ message: '※ 请勾选同意条款!!', duration: 2 })
   onShow();
-  usernameError.value = ""
+ 
 };
+
+const inputClasses = computed(() => {
+  if (show_name_Error.value) {
+    return 'border-red-600 border-2';
+  } else if (name.value && /^\d{8}$/.test(name.value)) {
+    return 'border-green-600 border-2';
+  } else {
+    return '';
+  }
+});
+
+const inputPasswordClasses = computed(() => {
+  if (show_pass_Error.value) {
+    return 'border-red-600 border-2 border';
+  } else if (password.value && password.value.length >= 6 && /\d/.test(password.value) && /[a-zA-Z]/.test(password.value)) {
+    return 'border-green-600 border-2';
+  } else {
+    return 'border-none';
+  }
+});
+
+function validateAccount() {
+  if (!/^\d{8}$/.test(name.value)) {
+    usernameError.value = '账号必须为8位数字组成！';
+    show_name_Error.value = true;
+  }else{
+    show_name_Error.value = false;
+  }
+}
+
+function validatePassword() {
+  if (password.value.length < 6) {
+    passwordError.value = '密码必须至少有6个字符长';
+    show_pass_Error.value = true;
+  } else if (!/\d/.test(password.value) || !/[a-zA-Z]/.test(password.value)) {
+    passwordError.value = '密码必须包含数字和英文字母';
+    show_pass_Error.value = true;
+  } else {
+    show_pass_Error.value = false;
+  }
+}
+
+
+watch(show_name_Error, (newValue) => {
+  if (!newValue || name.value === '') {
+    show_name_Error.value = false;
+  }
+});
+
+watch(show_pass_Error, (newValue) => {
+  if (!newValue || password.value === '') {
+    show_pass_Error.value = false;
+  }
+});
+
+watch(name, validateAccount);
+watch(password, validatePassword);
+
 
 if (localStorage.getItem("inviteCode")) {
   inviteCode.value = localStorage.getItem("inviteCode");

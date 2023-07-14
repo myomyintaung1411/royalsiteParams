@@ -160,7 +160,7 @@
               "
               class="flex mt-2 items-center justify-center focus:outline-none text-white text-sm sm:text-base rounded py-2 w-full transition duration-150 ease-in"
             >
-              <span class="mr-2 uppercase">登录dd</span>
+              <span class="mr-2 uppercase">登录</span>
               <span :class="!disableBtn ? 'sm:animate-wiggle ' : ''">
                 <svg
                   class="h-6 w-6"
@@ -231,7 +231,7 @@
     </div>
   </GameModalDialog>
 
-  <GameModalDialog :show="h5_selectGameDialog" @closegame="closeGameModal">
+  <!-- <GameModalDialog :show="h5_selectGameDialog" @closegame="closeGameModal">
     <div class="h-auto w-[90vw] cursor-pointer">
       <div class="mt-12 bg-black">
         <div
@@ -266,7 +266,7 @@
         </div>
       </div>
     </div>
-  </GameModalDialog>
+  </GameModalDialog> -->
 </template>
 
   <script setup>
@@ -285,6 +285,7 @@ import { useStore } from "vuex";
 import Notice from '@/network/alert'
 import allApi from "@/network/allApi";
 import GameModalDialog from "@/components/gameModal.vue";
+import { message } from '@/utils/prompt'
 
 const router = useRouter()
 const store = useStore()
@@ -345,7 +346,7 @@ const goDialog_Game = (number) => {
     case 2:
         if (Global?.h5_game_url) {
           window.open(
-            "http://" + Global?.h5_game_url + `?token=${endata}`
+            Global?.h5_game_url + `?token=${endata}`
           );
         }
       closeGameModal();
@@ -403,8 +404,9 @@ const onShow = () => {
             store.commit('user/GameEnterUserInfo',logindata)
             // this.UserBalance();
 
-                    if (mobileClick.value == 1) {
-          h5_selectGameDialog.value = true;
+          if (mobileClick.value == 1) {
+            goDialog_Game(2)
+          //h5_selectGameDialog.value = true;
         } else {
           selectGameModal.value = true;
         }
@@ -442,6 +444,7 @@ const onShow = () => {
   }
 
 const Login = (number) =>{
+  //message({ message: '为了您的账户安全，请先绑定手机号234324324324324。', duration: 2 })
   mobileClick.value = number; 
   if (name.value == '' || password.value == '') return Notice.Message("请输入所有字段","error")
   onShow()

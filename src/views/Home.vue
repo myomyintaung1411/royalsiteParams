@@ -419,7 +419,7 @@
       <div class=" w-full  h-32 bg-[#3f0e36]  mx-3 flex shadow-lg">
         <div class="flex flex-col w-1/2  justify-center items-center space-y-2">
           <p class="font-bold tracking-wide text-lg text-[#FFC827] ">安卓苹果下载</p>
-          <a :href="agentInfo?.downloadUrl" class="px-5 py-2 bg-[#c4a447]  rounded-xl font-bold tracking-wide">点击下载</a>
+          <a :href="Global?.app_down" class="px-5 py-2 bg-[#c4a447]  rounded-xl font-bold tracking-wide">点击下载</a>
         </div>
         <div class="w-1/2">
           <div class="card_bg two"></div>
@@ -428,7 +428,7 @@
       <div class=" w-full  h-32 bg-[#3f0e36]  mx-3 flex shadow-lg">
         <div class="flex flex-col w-1/2  justify-center items-center space-y-2">
           <p class="font-bold tracking-wide text-lg text-[#FFC827] ">代理登录入口</p>
-          <a :href="agentInfo?.htLink" class="px-5 py-2 bg-[#c4a447]  rounded-xl font-bold tracking-wide">点击进入</a>
+          <a :href="Global?.ad" class="px-5 py-2 bg-[#c4a447]  rounded-xl font-bold tracking-wide">点击进入</a>
         </div>
         <div class="w-1/2">
           <div class="card_bg three"></div>
@@ -585,7 +585,7 @@
         </div>
       </div>
     </GameModalDialog>
-
+<!-- 
     <GameModalDialog :show="h5_selectGameDialog" @closegame="closeGameModal">
       <div class="h-auto w-[90vw] cursor-pointer">
         <div class="mt-12 bg-black">
@@ -604,7 +604,7 @@
               />
             </div>
           </div>
-          <!-- <div
+          <div
             class="flex flex-col items-center px-4 font-bold text-white text-2xl bg-[#2b2a2954] py-3"
           >
             <div>经 典 版</div>
@@ -618,10 +618,10 @@
                 class="w-full h-full object-cover p-[1px]"
               />
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
-    </GameModalDialog>
+    </GameModalDialog> -->
 
 
   </div>
@@ -637,6 +637,7 @@ import { useI18n } from 'vue-i18n'
 import Carousal from '@/components/Carousal.vue';
 import global from '@/network/global'
 import AES from "@/network/aes";
+
 import { useStore } from "vuex";
 import {useRoute} from 'vue-router'
 
@@ -674,6 +675,8 @@ const Global = xxzz; // call unknow.js object as global
 
 
 const mobileMenuOpen = () => {
+    
+
   isMenuOpen.value = !isMenuOpen.value;
   window.scrollTo({
     top: 0,
@@ -771,6 +774,7 @@ function CustomerService(id,customerId) {
 
 
 function toTop() {
+  // message({ message: '为了您的账户安全，请先绑定手机号。', duration: 2 })
   window.scrollTo({
     top: 0,
     behavior: "smooth",
@@ -886,7 +890,8 @@ const goGame = () => {
    selectGameModal.value = true;
 }
 const goGameH5 = () => {
-  h5_selectGameDialog.value = true
+  goDialog_Game(2)
+  //h5_selectGameDialog.value = true
 }
 
 function serviceName(index) {
