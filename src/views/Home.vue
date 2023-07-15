@@ -803,15 +803,15 @@ const closeGameModal = () => {
 
 const goDialog_Game = (number) => {
   var gameEn = global?.gameEn;
-  var en = global.en;
+  //var en = global.en_cu;
   let data = {
     name: gameEnterInfo?.value?.name,
     password: gameEnterInfo?.value?.pw,
   };
   var endata = AES.encrypt(JSON.stringify(data), gameEn);
-  var ennnnn= 'k82L8raNKEZCK7p0JkmXYPEmrY8WUDd+wdYtu+OqdyAtAx+XxNs5DOKpvAMEOa+BOCYEC58iML+TXBi339BrMQ=='
-   var msg = JSON.parse(AES.decrypt(ennnnn, gameEn));
-   console.log(msg);
+ //var ennnnn= 'i9WxutVSKjI3DeaCt7exrqlMa7+OSTXEzjQrh3LGge/O/aDl0uleWJOLqZ/ISpaFMl0TXmF2koS5Uq5gG4k1wmRcjPzf2VceuxhACykS8/o='
+  // var msg = JSON.parse(AES.decrypt(ennnnn, en));
+  // console.log(msg);
   switch (number) {
     case 0:
       // if (

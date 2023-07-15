@@ -61,8 +61,8 @@
                 minlength="8"
                 maxlength="8"
                 name="name"
-                class="text-sm placeholder-gray-500 text-gray-500 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none"
-                placeholder="请输入8位账号"
+                class="text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-4 rounded w-full py-2 focus:outline-none outline-none"
+                placeholder="请输入 8位数账号"
               />
             </div>
           </div>
@@ -96,7 +96,7 @@
                 autocomplete="off"
                 :type="passwordField"
                 name="password"
-                class="__p text-sm placeholder-gray-500 text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
+                class="__p text-sm placeholder-gray-500 placeholder:text-[12px] placeholder:tracking-wider text-gray-500 pl-10 pr-16 rounded w-full py-2 focus:outline-0 outline-none focus:outline-none selection:outline-none border-none focus:border-none outline-hidden shadow-none outline-0"
                 placeholder="请输入密码"
               />
               <div
