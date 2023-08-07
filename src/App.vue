@@ -52,6 +52,11 @@ html {
 html::-webkit-scrollbar {
     width: 0px; /* For Chrome, Safari, and Opera */
 }
+
+.loading-open {
+    overflow: hidden;
+}
+
 body {
   padding: 0;
   margin: 0;

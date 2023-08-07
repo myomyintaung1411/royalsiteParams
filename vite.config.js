@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': resolve(__dirname, 'src'), //45311225
     },
   },
   server: {
@@ -19,14 +19,14 @@ export default defineConfig({
     port:4353,
     proxy: {
       '/api': {
-        target: 'http://192.168.1.10:3198/',
+        target: 'http://192.168.1.80:3198/',
         //'target':'http://tyworld-win.com',
         ws: true,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/cu': {
-        target: 'http://192.168.1.10:9998/',
+        target: 'http://192.168.1.80:9998/',
         //'target':'http://tyworld-win.com',
         ws: true,
         changeOrigin: true,

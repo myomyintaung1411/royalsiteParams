@@ -1,8 +1,8 @@
 const xxzz = {
-    old_pc_game_url:"http://pc.royalgaming.today/",
-    new_pc_game_url:"http://www.hj888888.vip/",
-    h5_game_url:"http://h5.royalgaming.today/",
-    ad:"http://admin.royalgaming.today/#/",
-    app_down:"http://download.royalgaming.today/",
-    chat_app:"http://cx5577.com"
+    old_pc_game_url:'http://888888hj.com/',
+    new_pc_game_url:'http://hj111222.com/',
+    h5_game_url:'http://hj222333.com/',
+    ad:"http://hj666999.cn/",
+    app_down:"http://appxz.hjwt1.com/",
+    chat_app:"http://cx5577.com",
 };

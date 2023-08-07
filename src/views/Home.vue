@@ -637,7 +637,7 @@ import { useI18n } from 'vue-i18n'
 import Carousal from '@/components/Carousal.vue';
 import global from '@/network/global'
 import AES from "@/network/aes";
-
+ import {load} from '@/utils/loading'
 import { useStore } from "vuex";
 import {useRoute} from 'vue-router'
 
@@ -1028,6 +1028,12 @@ if (route?.query !== undefined && route.query?.InvCode !== undefined) {
 } 
 
 onMounted(() => {
+  // load.show('Loading...', 2000); // Show loading for 2 seconds
+
+  //  load.hide()
+  // setTimeout(() => {
+  //   load.hide()
+  // }, 3000);
   // var url = "xincs597.com";
   //var url = "www.23423.com";
    var url = "www.royalgaming.today";
