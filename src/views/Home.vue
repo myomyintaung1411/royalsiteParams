@@ -33,14 +33,23 @@
 
       <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(1)">
-          <img src="@/assets/icon/ic_qq.svg" alt="" class="w-full h-full">
+          <img src="@/assets/icon/12.png" alt="" class="w-full h-full">
         </div>
         <div v-if="IconNum == 1 && isshowQQ"
-          class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
-          <span  class="w-[100px]">{{ agentInfo?.QQ }}</span>
+          class="absolute w-40   flex items-center text-center  px-2 leading-[30px] text-sm   -left-48   bg-[#3a3a3a] top-[10px]">
+          <div  class=" whitespace-normal break-words w-full">{{agentInfo?.QQ}}</div>
         </div>
       </li>
-      <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <li  v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+        <div @click="goService(2)">
+          <img src="@/assets/icon/121.png" alt="" class="w-full h-full">
+        </div>
+        <div v-if="IconNum == 2 && isshowWx"
+          class="absolute w-40   flex items-center text-center  px-2 leading-[30px] text-sm   -left-48   bg-[#3a3a3a] top-[10px]">
+          <div  class=" whitespace-normal break-words w-full">{{agentInfo?.WXH}}</div>
+        </div>
+      </li>
+      <!-- <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(2)">
           <img src="@/assets/icon/ic_wechat.svg" alt="" class="w-full h-full">
         </div>
@@ -52,14 +61,14 @@
             type: 'png'
           }"></vue-qrcode>
         </div>
-      </li>
+      </li> -->
       <li v-if="agentInfo?.phone" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(3)">
           <img src="@/assets/icon/ic_shouji.png" alt="" class="w-full h-full">
         </div>
         <div v-if="IconNum == 3 && isshowPh"
-          class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
-          <span  class="w-[100px]">{{ agentInfo?.phone }}</span>
+          class="absolute w-40   flex items-center text-center  px-2 leading-[30px] text-sm   -left-48   bg-[#3a3a3a] top-[10px]">
+          <div  class=" whitespace-normal break-words w-full">{{agentInfo?.phone}}</div>
         </div>
       </li>
 
@@ -473,17 +482,35 @@
         </div>
       </li>
 
-      <li v-if="agentInfo?.QQ" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <li v-if="agentInfo?.QQ"  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(1)">
-          <img src="@/assets/icon/ic_qq.svg" alt="" class="w-full h-full">
+          <img src="@/assets/icon/12.png" alt="" class="w-full h-full">
         </div>
-        <div v-if="IconNum == 1 && isshowQQ"
-          class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
-          <span  class="w-[100px]">{{ agentInfo?.QQ }}</span>
+        <div  v-if="IconNum == 1 && isshowQQ"
+          class="absolute w-40   flex items-center text-center  px-2 leading-[30px] text-sm   -left-48   bg-[#3a3a3a] top-[10px]">
+          <span  class="whitespace-normal break-words w-full">{{agentInfo?.QQ}}</span>
+        </div>
+      </li>
+      <li v-if="agentInfo?.WXH"  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+        <div @click="goService(2)">
+          <img src="@/assets/icon/12.png" alt="" class="w-full h-full">
+        </div>
+        <div  v-if="IconNum == 2 && isshowWx"
+          class="absolute w-40   flex items-center text-center  px-2 leading-[30px] text-sm   -left-48   bg-[#3a3a3a] top-[10px]">
+          <span  class="whitespace-normal break-words w-full">{{agentInfo?.WXH}}</span>
+        </div>
+      </li>
+      <li v-if="agentInfo?.phone"  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+        <div @click="goService(3)">
+          <img src="@/assets/icon/12.png" alt="" class="w-full h-full">
+        </div>
+        <div  v-if="IconNum == 3 && isshowPh"
+          class="absolute w-40   flex items-center text-center  px-2 leading-[30px] text-sm   -left-48   bg-[#3a3a3a] top-[10px]">
+          <span  class="whitespace-normal break-words w-full">{{agentInfo?.phone}}</span>
         </div>
       </li>
       
-      <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <!-- <li v-if="agentInfo?.WXH" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(2)">
           <img src="@/assets/icon/ic_wechat.svg" alt="" class="w-full h-full">
         </div>
@@ -495,9 +522,9 @@
             type: 'png'
           }"></vue-qrcode>
         </div>
-      </li>
+      </li> -->
 
-      <li v-if="agentInfo?.phone" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <!-- <li v-if="agentInfo?.phone" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(3)">
           <img src="@/assets/icon/ic_shouji.png" alt="" class="w-full h-full">
         </div>
@@ -505,7 +532,7 @@
           class="absolute  flex items-center text-center h-[30px] leading-[30px] text-sm left-[-150px] bg-[#3a3a3a] top-[10px]">
           <span  class="w-[100px]">{{ agentInfo?.phone }}</span>
         </div>
-      </li>
+      </li> -->
 
 
       <!-- <div v-if="isshowKefu &&   splitServiceUrl()?.length > 1"
