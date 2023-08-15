@@ -19,7 +19,7 @@ export default defineConfig({
     port:4353,
     proxy: {
       '/api': {
-        target: 'http://192.168.1.80:3198/',
+        target: 'http://45.116.164.146:3198/',
         //'target':'http://tyworld-win.com',
         ws: true,
         changeOrigin: true,
