@@ -578,21 +578,7 @@
       >
         <div class="w-full absolute top-28 px-4">
           <div class="w-full items-center mt-10 grid grid-cols-2 gap-x-1">
-            <div
-              class="flex flex-col items-center px-4 font-bold text-white text-2xl"
-            >
-              <div>豪 华 版</div>
-              <div
-                @click="goDialog_Game(0)"
-                class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-64 mt-5"
-              >
-                <img
-                  src="@/assets/images/gameimg1.jpg"
-                  alt=""
-                  class="w-full h-full object-cover p-[1px]"
-                />
-              </div>
-            </div>
+           
             <div
               class="flex flex-col items-center px-4 font-bold text-white text-2xl"
             >
@@ -608,6 +594,23 @@
                 />
               </div>
             </div>
+            
+            <div
+              class="flex flex-col items-center px-4 font-bold text-white text-2xl"
+            >
+              <div>豪 华 版</div>
+              <div
+                @click="goDialog_Game(0)"
+                class="w-full border-[2px] border-solid hover:border-[3px] cursor-pointer hover:border-solid hover:border-[#ecda92] rounded border-[#836a4c] h-64 mt-5"
+              >
+                <img
+                  src="@/assets/images/gameimg1.jpg"
+                  alt=""
+                  class="w-full h-full object-cover p-[1px]"
+                />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
