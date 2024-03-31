@@ -489,8 +489,10 @@ watch(password, validatePassword);
 if (route?.query !== undefined && route.query?.InvCode !== undefined) {
   console.log(route.query.InvCode);
   inviteCode.value = route.query.InvCode
+  console.log('not local',inviteCode.value)
 } else{
   if (localStorage.getItem("inviteCode")) {
+    console.log("here is a local",inviteCode.value)
   inviteCode.value = localStorage.getItem("inviteCode");
 }
 }

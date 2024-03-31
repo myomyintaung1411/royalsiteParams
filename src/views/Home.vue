@@ -105,7 +105,7 @@
                   t('service') }}</a> -->
 
               <div v-if="!loginState"  @click="goRegster('login')"
-                class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out">
+                class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out ">
                 <UserCircleIcon class="w-7 h-7 text-[#FFC827]"></UserCircleIcon>
                 <span class=" font-semibold mt-[2px]">{{ t('login') }}</span>
               </div>
@@ -384,12 +384,12 @@
             </div>
             <div v-if="!loginState" class="flex items-center space-x-2">
               <div @click="goRegster('login')"
-                class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out">
+                class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out ">
                 <UserCircleIcon class="w-7 h-7 text-[#FFC827]"></UserCircleIcon>
                 <span class=" font-semibold mt-[2px]">{{ t('login') }}</span>
               </div>
               <div @click="goRegster('reg')"
-                class="flex items-center space-x-1 mt-[2px] cursor-pointer transition duration-150 ease-in-out">
+                class="flex items-center space-x-1 mt-[2px] cursor-pointer transition duration-150 ease-in-out ">
                 <span class=" font-semibold">{{ t('register') }}</span>
               </div>
             </div>
@@ -772,7 +772,7 @@ function extractSpecialIds(link) {
   const urls = link?.split(",");
   const regex = /special=(\d+)/;
   
-  return urls.map(url => {
+  return urls?.map(url => {
     const match = url?.match(regex);
     return match ? parseInt(match[1]) : null;
   }).filter(id => id !== null);
@@ -1051,6 +1051,8 @@ width=500,height=700,left=${window.screen.width / 2},top=${window.screen.width /
 }
 
 const goRegster = (data) => {
+  console.log(inviteCode_.value,"go Rest Invite Code value *****")
+
    switch (data) {
     case 'login':
     router.push(`/login?InvCode=${inviteCode_.value}`)
@@ -1065,13 +1067,8 @@ const goRegster = (data) => {
  
 }
 
-if (route?.query !== undefined && route.query?.InvCode !== undefined) {
-  console.log(route.query.InvCode);
-  inviteCode_.value = route.query.InvCode
-  // const inviteCode = route.query.InvCode;
-  localStorage.setItem('inviteCode', route.query.InvCode);
-  // console.error(route.query.inviteCode + " route query from main.vue");
-} 
+//console.log(route.query.InvCode)
+
 
 onMounted(() => {
   // load.show('Loading...', 2000); // Show loading for 2 seconds
@@ -1085,7 +1082,18 @@ onMounted(() => {
    var url = "www.royalgaming.today";
    console.log(window.location,"ddddddd")
   //var url = window.location.host
+  console.log(route.query.InvCode,"routequery **********");
+  if (route?.query !== undefined) {
+  
+  inviteCode_.value = route.query?.InvCode ? route.query?.InvCode : route.query?.lnvCode
   GetAgentdata()
+  console.log(inviteCode_.value,"Invite Code value *****")
+  // const inviteCode = route.query.InvCode;
+  localStorage.setItem('inviteCode', route.query?.InvCode);
+  // console.error(route.query.inviteCode + " route query from main.vue");
+} 
+
+  
   window.addEventListener("scroll", handleScroll);
   //CustomerService()
   // callData()
