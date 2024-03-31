@@ -22,14 +22,14 @@
           @click="goBack()"
           class="w-8 h-8 text-[#FFC827]"
         ></ChevronLeftIcon>
-        <span class="text-[#FFC827]">登录</span>
-        <router-link to="/register">
+        <span class="text-[#FFC827] text-center w-full ">登录</span>
+        <!-- <router-link to="/register">
           <span>注册</span>
-        </router-link>
+        </router-link> -->
       </div>
     </div>
     <div
-      class="flex flex-col bg-[#474747] bg-opacity-40 z-30 text-gray-200 shadow-2xl shadow-[#342D11] px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl w-50 max-w-xs sm:max-w-md"
+      class="flex flex-col bg-[#474747] bg-opacity-40 z-30 text-gray-200 shadow-2xl shadow-[#342D11] px-10 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl  max-w-sm sm:max-w-md"
     >
       <div class="py-3 self-center">
         <img src="@/assets/images/logo.png" alt="" class="w-[120px] h-auto" />
@@ -182,9 +182,9 @@
 
         </form>
       </div>
-      <span class="text-[13px] mt-2"
+      <span class="text-[13px] mt-2 flex space-x-1"
         >没有帐户？点击这里
-        <router-link to="/register" class="text-[#FFC827]">注册</router-link>
+        <div @click="goRegster('reg')" class="text-[#FFC827] pl-2 cursor-pointer">注册</div>
       </span>
     </div>
   </div>
@@ -289,6 +289,7 @@ import GameModalDialog from "@/components/gameModal.vue";
 import { message } from '@/utils/prompt'
 
 const router = useRouter()
+const route = useRoute()
 const store = useStore()
 
 const name = ref("");
@@ -310,6 +311,21 @@ const disableBtn = computed(() => {
     return false;
   }
 });
+
+const goRegster = (data) => {
+   switch (data) {
+    case 'login':
+    router.push(`/login?InvCode=${inviteCode.value}`)
+      break;
+    case 'reg':
+    router.push(`/register?InvCode=${inviteCode.value}`)
+      break;
+   
+    default:
+      break;
+   }
+ 
+}
 
 const closeGameModal = () => {
   selectGameModal.value = false;
@@ -451,8 +467,16 @@ const Login = (number) =>{
   onShow()
 }
 
-if (localStorage.getItem("inviteCode")) {
+// if (localStorage.getItem("inviteCode")) {
+//   inviteCode.value = localStorage.getItem("inviteCode");
+// }
+if (route?.query !== undefined && route.query?.InvCode !== undefined) {
+  console.log(route.query.InvCode);
+  inviteCode.value = route.query.InvCode
+} else{
+  if (localStorage.getItem("inviteCode")) {
   inviteCode.value = localStorage.getItem("inviteCode");
+}
 }
   </script>
   

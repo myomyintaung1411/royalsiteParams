@@ -104,15 +104,15 @@
                 class=" py-4 px-2   font-semibold hover:text-[#FFC827]  transition duration-150 ease-in-out cursor-pointer ">{{
                   t('service') }}</a> -->
 
-              <router-link v-if="!loginState" to="/login"
+              <div v-if="!loginState"  @click="goRegster('login')"
                 class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out">
                 <UserCircleIcon class="w-7 h-7 text-[#FFC827]"></UserCircleIcon>
                 <span class=" font-semibold mt-[2px]">{{ t('login') }}</span>
-              </router-link>
-              <router-link v-if="!loginState" to="/register"
+              </div>
+              <div v-if="!loginState" @click="goRegster('reg')"
                 class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out">
                 <span class=" font-semibold">{{ t('register') }}</span>
-              </router-link>
+            </div>
               <div v-if="loginState" class="flex items-center">
                 <div class="flex items-center space-x-2 mr-5">
                   <!-- <span class="text-sm tracking-wider">用户名 :</span> -->
@@ -383,15 +383,15 @@
               </a>
             </div>
             <div v-if="!loginState" class="flex items-center space-x-2">
-              <router-link to="/login"
+              <div @click="goRegster('login')"
                 class="flex items-center space-x-1 cursor-pointer transition duration-150 ease-in-out">
                 <UserCircleIcon class="w-7 h-7 text-[#FFC827]"></UserCircleIcon>
                 <span class=" font-semibold mt-[2px]">{{ t('login') }}</span>
-              </router-link>
-              <router-link to="/register"
+              </div>
+              <div @click="goRegster('reg')"
                 class="flex items-center space-x-1 mt-[2px] cursor-pointer transition duration-150 ease-in-out">
                 <span class=" font-semibold">{{ t('register') }}</span>
-              </router-link>
+              </div>
             </div>
             <div v-if="loginState" class="flex items-center">
               <div class="flex items-center space-x-1 mr-3">
@@ -669,12 +669,13 @@ import global from '@/network/global'
 import AES from "@/network/aes";
  import {load} from '@/utils/loading'
 import { useStore } from "vuex";
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 
 const { t } = useI18n();
 console.log(t);
 const store = useStore()
 const route = useRoute()
+const router = useRouter()
 
 
 
@@ -1049,11 +1050,26 @@ width=500,height=700,left=${window.screen.width / 2},top=${window.screen.width /
   }
 }
 
+const goRegster = (data) => {
+   switch (data) {
+    case 'login':
+    router.push(`/login?InvCode=${inviteCode_.value}`)
+      break;
+    case 'reg':
+    router.push(`/register?InvCode=${inviteCode_.value}`)
+      break;
+   
+    default:
+      break;
+   }
+ 
+}
+
 if (route?.query !== undefined && route.query?.InvCode !== undefined) {
   console.log(route.query.InvCode);
   inviteCode_.value = route.query.InvCode
-  const inviteCode = route.query.InvCode;
-  localStorage.setItem('inviteCode', inviteCode);
+  // const inviteCode = route.query.InvCode;
+  localStorage.setItem('inviteCode', route.query.InvCode);
   // console.error(route.query.inviteCode + " route query from main.vue");
 } 
 

@@ -22,15 +22,15 @@
           @click="goBack()"
           class="w-8 h-8 text-[#FFC827]"
         ></ChevronLeftIcon>
-        <span class="text-[#FFC827]">注册</span>
-        <router-link to="/login">
+        <span class="text-[#FFC827] text-center w-full">注册</span>
+        <!-- <router-link to="/login">
           <span>登录</span>
-        </router-link>
+        </router-link> -->
       </div>
     </div>
 
     <div
-      class="flex flex-col bg-[#474747] bg-opacity-40 z-30 text-gray-200 shadow-2xl  shadow-[#342D11] px-4 sm:px-6 md:px-8 lg:px-10 pb-4 rounded-3xl w-50 max-w-xs sm:max-w-md"
+      class="flex flex-col bg-[#474747] bg-opacity-40 z-30 text-gray-200 shadow-2xl  shadow-[#342D11] sm:px-6 md:px-8 lg:px-12 pb-4  rounded-3xl max-w-md   px-10    sm:max-w-md"
     >
       <div class="py-3 self-center">
         <img src="@/assets/images/logo.png" alt="" class="w-[120px] h-auto" />
@@ -236,9 +236,9 @@
         </form>
         
       </div>
-      <span class="text-[13px] mt-2"
+      <span class="text-[13px] mt-2 flex"
         >已有账户？点这里
-        <router-link to="/login" class="text-[#FFC827]">登录 </router-link>
+        <div  @click="goRegster('login')" class="text-[#FFC827] pl-2 cursor-pointer">登录 </div>
       </span>
     </div>
   </div>
@@ -255,7 +255,7 @@ import {
   CodeIcon,
 } from "@heroicons/vue/outline";
 import { ref, computed, onMounted, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 import Vcode from "vue3-puzzle-vcode";
 import Notice from "@/network/alert";
 import allApi from "@/network/allApi";
@@ -265,6 +265,7 @@ import md5 from "js-md5";
 import { useStore } from "vuex";
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 
 const name = ref("");
@@ -318,6 +319,21 @@ const onShow = () => {
 const onClose = () => {
   isShow.value = false;
 };
+
+const goRegster = (data) => {
+   switch (data) {
+    case 'login':
+    router.push(`/login?InvCode=${inviteCode.value}`)
+      break;
+    case 'reg':
+    router.push(`/register?InvCode=${inviteCode.value}`)
+      break;
+   
+    default:
+      break;
+   }
+ 
+}
 
 const onSuccess = () => {
   var en = global?.en;
@@ -470,10 +486,16 @@ watch(show_pass_Error, (newValue) => {
 watch(name, validateAccount);
 watch(password, validatePassword);
 
-
-if (localStorage.getItem("inviteCode")) {
+if (route?.query !== undefined && route.query?.InvCode !== undefined) {
+  console.log(route.query.InvCode);
+  inviteCode.value = route.query.InvCode
+} else{
+  if (localStorage.getItem("inviteCode")) {
   inviteCode.value = localStorage.getItem("inviteCode");
 }
+}
+
+
 
 onMounted(() => {
   host.value = window?.location?.origin;
