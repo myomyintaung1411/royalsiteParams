@@ -1071,6 +1071,7 @@ const goRegster = (data) => {
 
 
 onMounted(() => {
+
   // load.show('Loading...', 2000); // Show loading for 2 seconds
 
   //  load.hide()

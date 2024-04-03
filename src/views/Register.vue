@@ -369,11 +369,13 @@ const onSuccess = () => {
         return Notice.Message("注册失败", "error");
       }
       if (msg?.JsonData?.result == "101") {
-        name.value = "";
+       
         password.value = "";
         confirmpass.value = "";
         Notice.Message("注册成功，请登录", "success");
-        router.push("/login");
+        //router.push("/login");
+        router.push(`/login?InvCode=${inviteCode.value}&username=${name.value}`);
+        name.value = "";
       }
     })
     .catch((e) => {

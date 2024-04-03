@@ -470,8 +470,10 @@ const Login = (number) =>{
 // if (localStorage.getItem("inviteCode")) {
 //   inviteCode.value = localStorage.getItem("inviteCode");
 // }
+
 if (route?.query !== undefined && route.query?.InvCode !== undefined) {
   console.log(route.query?.InvCode);
+  name.value = route.query?.username
   inviteCode.value = route.query?.InvCode
   console.log('not local',inviteCode.value)
 } else{
