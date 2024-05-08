@@ -706,8 +706,6 @@ const Global = xxzz; // call unknow.js object as global
 
 
 const mobileMenuOpen = () => {
-    
-
   isMenuOpen.value = !isMenuOpen.value;
   window.scrollTo({
     top: 0,
