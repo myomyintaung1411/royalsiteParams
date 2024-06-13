@@ -1,10 +1,10 @@
 
 const xxzz = {
-    old_pc_game_url:'https://pc1.th371.com/',
-    new_pc_game_url:'https://pc2.th371.com/',
-    h5_game_url:'https://h5.th371.com/',
-    ad:"https://ht.th371.com/",
-    app_down:"https://download.yx753.com/",
+    old_pc_game_url:'https://pc1.hjbc666.com/',
+    new_pc_game_url:'https://pc2.hj812.vip/',
+    h5_game_url:'https://h5.hj812.vip/',
+    ad:"https://ht.hjbc666.com/",
+    app_down:"https://download.hjbc66.com/",
     chat_app:"http://www.cx6699.top/",
 };
 
