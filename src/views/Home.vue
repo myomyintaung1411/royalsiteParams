@@ -779,18 +779,16 @@ function extractSpecialIds(link) {
 function CustomerService(id,customerId) {
  // const customer_id = extractSpecialIds();
 
-  var en = global.en_cu;
-  const data = JSON.stringify({ "Id":id,"customer_id":JSON.stringify(customerId) });
-   console.log(data)
-  let endata = AES.encrypt(data, en);
-  console.log(endata);
-  api.GetServicLink({ data: endata })
+ const send_ = {Id:id, customer_id:JSON.stringify(customerId)}
+   console.log(send_)
+
+
+  api.GetServicLink(send_)
     .then((res) => {
       var body = res?.data;
-      var msg = JSON.parse(AES.decrypt(body, en));
-      console.log(msg, "response msg of customer service");
-      if (msg?.JsonData?.result == "ok" ) {
-        customer_service_link.value = msg?.JsonData?.data
+      console.log(body, "response msg of customer service");
+      if (body?.JsonData?.result == "ok" ) {
+        customer_service_link.value = body?.JsonData?.data
         //store.commit('user/Agent_Info', msg?.JsonData)
         //agentInfo.value = msg?.JsonData
       }

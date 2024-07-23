@@ -26,7 +26,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/cu': {
-        target: 'http://192.168.1.80:9998/',
+        target: 'https://kf1.hjkf77.cn/api/server/',
         //'target':'http://tyworld-win.com',
         ws: true,
         changeOrigin: true,
