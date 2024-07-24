@@ -22,9 +22,9 @@
               </div>
             </div> -->
             <div v-for="(service, n) in customer_service_link" :key="n" class="py-1 ">
-              <div @click="clickService(service?.c_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#350b2d] py-2">
+              <div @click="clickService(service?.service_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#350b2d] py-2">
                 <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
-                <div>{{service.nickname}}</div>
+                <div>{{service.nick_name}}</div>
               </div>
             </div>
           </div>
@@ -560,9 +560,9 @@
             
             <h2 class="text-center text-base tracking-wide text-[#FFC827]">选择客服</h2>
             <div v-for="(service, n) in customer_service_link" :key="n" class="py-1 ">
-              <div @click="clickService(service?.c_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#5c5854] py-2">
+              <div @click="clickService(service?.service_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#5c5854] py-2">
                 <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
-                <div>{{service.nickname}}</div>
+                <div>{{service.nick_name}}</div>
               </div>
             </div>
           </div>
