@@ -50,7 +50,8 @@ export default {
      },
      GetServicLink(data) {
          return network({
-             url: '/getServiceName ',
+             url: '/getServiceName',
+             //url: '/getServiceLink  ',
              method: 'post',
              data,
              requestBase: '/cu',

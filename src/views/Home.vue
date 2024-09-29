@@ -3,7 +3,8 @@
    
     <!-- customer service -->
     <div class="fixed right-5 bottom-[300px]   z-50 flex flex-col space-y-3">
-      <li v-if="agentInfo?.customerAddr" class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <!-- v-if="agentInfo?.customerAddr" -->
+      <li  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
@@ -22,9 +23,9 @@
               </div>
             </div> -->
             <div v-for="(service, n) in customer_service_link" :key="n" class="py-1 ">
-              <div @click="clickService(service?.service_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#350b2d] py-2">
+              <div @click="clickService(service?.c_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#350b2d] py-2">
                 <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
-                <div>{{service.nick_name}}</div>
+                <div>{{service.nickname}}</div>
               </div>
             </div>
           </div>
@@ -476,7 +477,8 @@
     </div>
     <!-- customer service -->
     <div  class="fixed right-5 bottom-[100px]   z-50 flex flex-col space-y-3">
-      <li v-if="agentInfo?.customerAddr"  class="list-none w-[50px] h-[50px] cursor-pointer relative ">
+      <!-- v-if="agentInfo?.customerAddr" -->
+      <li   class="list-none w-[50px] h-[50px] cursor-pointer relative ">
         <div @click="goService(0)">
           <img src="@/assets/icon/ic_kf.svg" alt="" class="w-full h-full">
         </div>
@@ -560,9 +562,9 @@
             
             <h2 class="text-center text-base tracking-wide text-[#FFC827]">选择客服</h2>
             <div v-for="(service, n) in customer_service_link" :key="n" class="py-1 ">
-              <div @click="clickService(service?.service_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#5c5854] py-2">
+              <div @click="clickService(service?.c_id)" class="rounded-lg flex items-center text-sm  space-x-3 bg-[#5c5854] py-2">
                 <img src="@/assets/images/service.png" alt="" class="w-10 ml-2  ">
-                <div>{{service.nick_name}}</div>
+                <div>{{service.nickname}}</div>
               </div>
             </div>
           </div>
@@ -755,7 +757,7 @@ function GetAgentdata() {
         store.commit('user/Agent_Info', msg?.JsonData)
         agentInfo.value = msg?.JsonData
         const customer_id = extractSpecialIds(msg?.JsonData?.customerAddr);//get id from customerAddr like [2852,2853] etc
-
+        
         CustomerService(msg?.JsonData?.Id,customer_id) //getting customer name 
       }
     })
@@ -778,17 +780,27 @@ function extractSpecialIds(link) {
 
 function CustomerService(id,customerId) {
  // const customer_id = extractSpecialIds();
-
- const send_ = {Id:id, customer_id:JSON.stringify(customerId)}
-   console.log(send_)
-
-
-  api.GetServicLink(send_)
+  console.log(customerId,"customerId")
+  console.log(id,"id")
+ //const send_ = {Id:id, customer_id:JSON.stringify(customerId)}
+  // console.log(send_)
+  var en = global.en_cu;
+  const data = JSON.stringify({ "Id":id,"customer_id": customerId ?  JSON.stringify(customerId) :  JSON.stringify([])});
+   console.log(data)
+  let endata = AES.encrypt(data, en);
+  console.log(endata);
+  api.GetServicLink({ data: endata })
     .then((res) => {
+      // var body = res?.data;
+      // console.log(body, "response msg of customer service");
+      // if (body?.JsonData?.result == "ok" ) {
+      //   customer_service_link.value = body?.JsonData?.data
+      // }
       var body = res?.data;
-      console.log(body, "response msg of customer service");
-      if (body?.JsonData?.result == "ok" ) {
-        customer_service_link.value = body?.JsonData?.data
+      var msg = JSON.parse(AES.decrypt(body, en));
+      console.log(msg, "response msg of customer service");
+      if (msg?.JsonData?.result == "ok" ) {
+        customer_service_link.value = msg?.JsonData?.data
         //store.commit('user/Agent_Info', msg?.JsonData)
         //agentInfo.value = msg?.JsonData
       }
